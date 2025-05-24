@@ -1,13 +1,13 @@
 #ifndef OBJECT_HPP
 #define OBJECT_HPP
 #include "global.hpp"
-
+#include <iostream>
 class Object {
-private:
+protected:
     Position position;
 public:
     Object(const Position&);
-    virtual void display() = 0;
+    virtual bool update();
     virtual ~Object() = default;
 };
 

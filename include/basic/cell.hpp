@@ -10,12 +10,19 @@
 class Cell {
 private:
     Position position;
-    std::optional<std::shared_ptr<Object>> item;
+    Object* item;
+    bool changed = false;
 public:
+    void reset();
+    void switchOn();
+    bool isSwitched();
     Cell();
     bool isEmpty() const;
-    void insert(const std::shared_ptr<Object>&);
-    std::shared_ptr<Object>& get();
+    void insert(Object*);
+    Object* get();
+    void destroyObject();
+    void forgetObject();
+    ~Cell();
 };
 
 #endif

@@ -3,17 +3,17 @@
 #include <ocean.hpp>
 #include <iostream>
 #include <memory>
-#include <t_sprite.hpp>
+#include <chrono>
 
-class Ocean: public Sprite {
+class Ocean{
 private:
+    std::ostream& out;
     std::unique_ptr<OceanImpl> pimpl;
 public:
     Ocean(std::ostream&, unsigned int, unsigned int);
     void display();
-    void displayEmptyCell();
+    void displayCell(Object*);
+    void start();
 };
-
-void displayEmptyCell();
 
 #endif
