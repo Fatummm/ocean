@@ -18,7 +18,7 @@ void OceanImpl::fillWithSand() {
     for (unsigned int i = 0; i != getRows(); ++i) {
         for (unsigned int j = 0; j != getColumns(); ++j) {
             if (j == 0 || j + 1 == getColumns() || i + 1 == getRows()) {
-                field[i][j].insert(new SandImpl(Position{i, j}));
+                field[i][j].insert(new Sand(Position{i, j}));
             }
         }
     }
@@ -42,8 +42,8 @@ std::optional<Position> OceanImpl::findNearby(const Position& pos) {
 void OceanImpl::generateAlgaes() {
     for (unsigned int i = 0; i != getRows(); ++i) {
         for (unsigned int j = 0; j != getColumns(); ++j) {
-            if (field[i][j].isEmpty() && findNearby<SandImpl>(Position{i, j}) && rand() % ALGAE_PROBS == 0) {
-                field[i][j].insert(new AlgaeImpl(Position{i, j}));
+            if (field[i][j].isEmpty() && findNearby<Sand>(Position{i, j}) && rand() % ALGAE_PROBS == 0) {
+                field[i][j].insert(new Algae(Position{i, j}));
             }
         }
     }
@@ -53,9 +53,17 @@ void OceanImpl::generateHerbivores() {
     for (unsigned int i = 0; i != getRows(); ++i) {
         for (unsigned int j = 0; j != getColumns(); ++j) {
             if (field[i][j].isEmpty() && rand() % HERBIVORE_PROBS == 0) {
-                field[i][j].insert(new Herbivore(Position{i,j}, MAX_SATURATION, MAX_AGE, this));
-                //std::cout << "Yes";
-                //field[i][j].insert(new AlgaeImpl(Position{i, j}));
+                field[i][j].insert(new Herbivore(Position{i,j}, HERBIVORE_SATURATION, HERBIVORE_AGE, this));
+            }
+        }
+    }
+}
+
+void OceanImpl::generatePredators() {
+    for (unsigned int i = 0; i != getRows(); ++i) {
+        for (unsigned int j = 0; j != getColumns(); ++j) {
+            if (field[i][j].isEmpty() && rand() % PREDATOR_PROBS == 0) {
+                field[i][j].insert(new Predator(Position{i,j}, PREDATOR_SATURATION, PREDATOR_AGE, this));
             }
         }
     }
@@ -64,6 +72,7 @@ void OceanImpl::generateHerbivores() {
 void OceanImpl::update() {
     generateAlgaes();
     generateHerbivores();
+    generatePredators();
     for (unsigned int i = 0; i != getRows(); ++i) {
         for (unsigned int j = 0; j != getColumns(); ++j) {
             if (!field[i][j].isEmpty() && !field[i][j].isSwitched() && dynamic_cast<Herbivore*>(field[i][j].get())) {
@@ -72,15 +81,24 @@ void OceanImpl::update() {
                     field[i][j].destroyObject();
                     continue;
                 }
-                if (std::optional<Position> pos = findNearby<AlgaeImpl>(Position{i, j}); pos) {
-                    field[pos->x][pos->y].destroyObject();
-                    field[pos->x][pos->y].insert(field[i][j].get());
-                    field[i][j].forgetObject();
-                }
+                
             }
         }
     }
 
+    for (unsigned int i = 0; i != getRows(); ++i) {
+        for (unsigned int j = 0; j != getColumns(); ++j) {
+            if (!field[i][j].isEmpty() && !field[i][j].isSwitched() && dynamic_cast<Predator*>(field[i][j].get())) {
+                Predator* p = dynamic_cast<Predator*>(field[i][j].get());
+                if (!p->update()) {
+                    field[i][j].destroyObject();
+                    continue;
+                }
+                
+            }
+        }
+    }
+    
     for (unsigned int i = 0; i != getRows(); ++i) {
         for (unsigned int j = 0; j != getColumns(); ++j) {
             field[i][j].reset();

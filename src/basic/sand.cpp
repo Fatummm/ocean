@@ -1,3 +1,3 @@
 #include <sand.hpp>
 
-SandImpl::SandImpl(const Position& pos): Object(pos) {}
+Sand::Sand(const Position& pos): Object(pos) {}

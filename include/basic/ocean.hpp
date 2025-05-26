@@ -10,6 +10,7 @@
 #include <vector>
 #include <memory>
 #include <optional>
+#include <position.hpp>
 
 
 class OceanImpl {

@@ -8,8 +8,7 @@ bool Cell::isEmpty() const {
 }
 
 void Cell::insert(Object* object) {
-    if (!isEmpty()) 
-    throw double_insertion("Trying to insert an object into a full cell");
+    if (!isEmpty()) throw double_insertion("Trying to insert an object into a full cell");
     changed = true;
     item = object;
 }

@@ -1,37 +1,52 @@
 #ifndef GLOBAL_HPP
 #define GLOBAL_HPP
 
+
 #define SECONDS_DELTA 1
 #define MILLISECONDS_DELTA 500
-#define ROWS 20
-#define COLUMNS 20
-#define ALGAE_PROBS 100
-#define MAX_SATURATION 10
-#define MAX_AGE 20
-#define HERBIVORE_PROBS 1000
-#define PREDATOR_PROBS 10000
+#define SECONDS_TO_RUN 30
 
-struct Position {
-    unsigned int x;
-    unsigned int y;
-};
+#define ROWS 18
+#define COLUMNS 32
 
-int distance(const Position& lhs, const Position& rhs);
+#define ALGAE_PROBS 30
 
-bool operator == (const Position& lhs, const Position& rhs);
+#define HERBIVORE_SATURATION 10
+#define HERBIVORE_AGE 40
+#define HERBIVORE_PROBS 800
 
-// classes that will not have inheritors
+#define PREDATOR_SATURATION 10
+#define PREDATOR_AGE 20
+#define PREDATOR_PROBS 5000
+
+#define MAX_PREDATORS 5
+#define MAX_HERBIVORES 20
+
+#define AGE_TO_REPRODUCE 10
+#define SATURATION_TO_REPRODUCE 25
+
+
+struct Position;
+
+// basic objects
 class Cell;
 class Object;
 
+// algae and sand
+class Algae;
+class Sand;
 
-// classes that will have inheritors (pimpl)
-class AlgaeImpl;
-
+// fishes
 template <typename Food>
-class FishImpl;
+class Fish;
+using Herbivore = Fish<Algae>;
+using Predator = Fish<Herbivore>;
 
+// logger
+template <typename T>
+class Logger;
+
+// ocean
 class OceanImpl;
-class SandImpl;
 
 #endif

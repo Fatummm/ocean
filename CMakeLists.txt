@@ -9,28 +9,32 @@ include_directories(
     include
     include/basic
     include/exceptions
+    include/utils
     include/interface/terminal
     include/interface/gui)
 
-add_library(GlobalConfig
-    src/global.cpp)
+# add_library(GlobalConfig
+#     src/global.cpp)
 
+add_definitions(-DTERMINAL)
 add_library(Logics 
     src/basic/object.cpp
     src/basic/algae.cpp
     src/basic/cell.cpp
     src/basic/fish.cpp
+    src/basic/position.cpp
     src/basic/ocean.cpp
     src/basic/sand.cpp
     src/exceptions/double_insertion.cpp
     )
 
-set(LOG_FILE "${CMAKE_CURRENT_BINARY_DIR}/build_log.txt")
-
-
 add_library(terminalInterface
-            src/interface/terminal/t_ocean.cpp
-            )
+        src/interface/terminal/terminal_ocean.cpp
+        )
+
+add_library(Logging
+        src/utils/logger.cpp
+        )
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     message(STATUS "Using GCC compiler")
@@ -43,4 +47,4 @@ add_executable(Game src/main.cpp)
 #     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}
 # )
 
-target_link_libraries(Game terminalInterface Logics GlobalConfig)
+target_link_libraries(Game terminalInterface Logics Logging)

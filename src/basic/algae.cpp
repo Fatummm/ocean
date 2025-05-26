@@ -1,3 +1,3 @@
 #include <algae.hpp>
 
-AlgaeImpl::AlgaeImpl(const Position& pos): Object(pos) {}
+Algae::Algae(const Position& pos): Object(pos) {}

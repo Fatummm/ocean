@@ -2,6 +2,7 @@
 #define OBJECT_HPP
 #include "global.hpp"
 #include <iostream>
+#include <position.hpp>
 class Object {
 protected:
     Position position;

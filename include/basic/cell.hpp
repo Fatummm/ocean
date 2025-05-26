@@ -4,6 +4,7 @@
 #include "global.hpp"
 #include "object.hpp"
 #include "double_insertion.hpp"
+#include <position.hpp>
 #include <optional>
 #include <memory>
 
@@ -13,10 +14,10 @@ private:
     Object* item;
     bool changed = false;
 public:
+    Cell();
     void reset();
     void switchOn();
     bool isSwitched();
-    Cell();
     bool isEmpty() const;
     void insert(Object*);
     Object* get();

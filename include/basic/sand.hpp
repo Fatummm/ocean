@@ -2,12 +2,12 @@
 #define SAND_HPP
 
 #include <object.hpp>
-
-class SandImpl: public Object {
+#include <position.hpp>
+class Sand: public Object {
 private:
 
 public:    
-    SandImpl(const Position&);
+    Sand(const Position&);
 };
 
 #endif

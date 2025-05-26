@@ -1,5 +1,5 @@
-#ifndef T_OCEAN_HPP
-#define T_OCEAN_HPP
+#ifndef TERMINAL_OCEAN_HPP
+#define TERMINAL_OCEAN_HPP
 #include <ocean.hpp>
 #include <iostream>
 #include <memory>
