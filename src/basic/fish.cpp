@@ -15,6 +15,8 @@ void Fish<Food>::travel() {
         (*ocean)[destination.x][destination.y].destroyObject();
         (*ocean)[destination.x][destination.y].insert(this);
         (*ocean)[position.x][position.y].forgetObject();
+        if (destination.y > position.y) direction = Direction::Right;
+        else direction = Direction::Left;
         position = destination;
         saturation += 5;
         return;
@@ -47,12 +49,14 @@ void Fish<Food>::travel() {
         (*ocean)[position.x][position.y+1].insert(this);
         (*ocean)[position.x][position.y].forgetObject();
         ++position.y;
+        direction = Direction::Right;
 
     }
     else if (destination.y < position.y && (*ocean)[position.x][position.y-1].isEmpty()) {
         (*ocean)[position.x][position.y-1].insert(this);
         (*ocean)[position.x][position.y].forgetObject();
         --position.y;
+        direction = Direction::Left;
     }
     if (destination == position) {
         destination = Position{static_cast<unsigned int>(rand() % ROWS), static_cast<unsigned int>(rand() % COLUMNS)};
@@ -62,6 +66,11 @@ void Fish<Food>::travel() {
     age();
     (*ocean)[position.x][position.y].switchOn();
     
+}
+
+template <typename Food>
+Direction Fish<Food>::getDirection() {
+    return direction;
 }
 
 template <typename Food>
@@ -151,7 +160,5 @@ std::optional<Position> Fish<Food>::findEmptyCell() {
     }
     return {};
 }
-
-OceanImpl impl(2, 2);
-Herbivore h(Position{0, 3}, 2, 2, &impl);
-Predator p(Position{0, 3}, 2, 2, &impl);
+template class Fish<Algae>;
+template class Fish<Herbivore>;

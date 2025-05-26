@@ -25,6 +25,9 @@
 #define AGE_TO_REPRODUCE 10
 #define SATURATION_TO_REPRODUCE 25
 
+enum class Direction {
+    Left, Right
+};
 
 struct Position;
 

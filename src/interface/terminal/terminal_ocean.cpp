@@ -25,8 +25,19 @@ void Ocean::display() {
 void Ocean::displayCell(Object* obj) {
     if (dynamic_cast<Sand*>(obj)) out << "\033[1;43m # \033[0m";
     else if (dynamic_cast<Algae*>(obj)) out << "\033[1;46m * \033[0m";
-    else if (dynamic_cast<Predator*>(obj)) out << "\033[1;31m P \033[0m";
-    else if (dynamic_cast<Herbivore*>(obj)) out << "\033[1;35m H \033[0m";  
+    else if (dynamic_cast<Predator*>(obj)) {
+        Predator* p = dynamic_cast<Predator*>(obj);
+        out << "\033[1;31m ";
+        (p->getDirection() == Direction::Left) ? (out << "<") : (out << ">");
+        out << " \033[0m";
+
+    }
+    else if (dynamic_cast<Herbivore*>(obj)) {
+        Herbivore* h = dynamic_cast<Herbivore*>(obj);
+        out << "\033[1;35m ";
+        (h->getDirection() == Direction::Left) ? (out << "<") : (out << ">");
+        out << " \033[0m";
+    }
     else out << "   ";
 }
 

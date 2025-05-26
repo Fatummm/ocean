@@ -12,6 +12,7 @@ public:
     using type = Fish<Food>;
 
 protected:
+    Direction direction = Direction::Left;
     Logger<type> lg;
     Position destination;
     unsigned int saturation;
@@ -21,6 +22,7 @@ public:
 
     Fish(const Position&, unsigned int, unsigned int, OceanImpl*);
     void travel();
+    Direction getDirection();
     void eat(const Position&);
     std::optional<Position> findEmptyCell();
     void findPartner();

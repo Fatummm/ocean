@@ -11,6 +11,10 @@ private:
     std::unique_ptr<OceanImpl> pimpl;
 public:
     Ocean(std::ostream&, unsigned int, unsigned int);
+    Ocean(const Ocean&) = delete;
+    Ocean(const Ocean&&) = delete;
+    Ocean& operator =(const Ocean&) = delete;
+    Ocean& operator =(const Ocean&&) = delete;
     void display();
     void displayCell(Object*);
     void start();
