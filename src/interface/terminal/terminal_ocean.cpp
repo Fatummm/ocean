@@ -1,11 +1,9 @@
 #include <terminal_ocean.hpp>
 
-Ocean::Ocean(std::ostream& out, unsigned int rows, unsigned int columns): 
-    out(out), pimpl(std::make_unique<OceanImpl>(rows, columns)) {
-        pimpl->fillWithSand();
-    }
+TOcean::TOcean(unsigned int rows, unsigned int columns, std::ostream& out): 
+    out(out), pimpl(std::make_unique<OceanImpl>(rows, columns)) {}
 
-void Ocean::display() {
+void TOcean::display() {
     out << "\033[H\033[2J\033[3J";
     for (unsigned int i = 0; i != pimpl->getRows() + 2; ++i) {
         for (unsigned int j = 0; j != pimpl->getColumns(); ++j) {
@@ -22,7 +20,7 @@ void Ocean::display() {
     out << std::endl;
 }
 
-void Ocean::displayCell(Object* obj) {
+void TOcean::displayCell(Object* obj) {
     if (dynamic_cast<Sand*>(obj)) out << "\033[1;43m # \033[0m";
     else if (dynamic_cast<Algae*>(obj)) out << "\033[1;46m * \033[0m";
     else if (dynamic_cast<Predator*>(obj)) {
@@ -41,7 +39,7 @@ void Ocean::displayCell(Object* obj) {
     else out << "   ";
 }
 
-void Ocean::start() {
+void TOcean::start() {
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
     std::chrono::high_resolution_clock::time_point time_p = std::chrono::high_resolution_clock::now();
     while (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::high_resolution_clock::now() - start) <= std::chrono::seconds(SECONDS_TO_RUN)) {

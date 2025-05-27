@@ -8,7 +8,9 @@ unsigned int OceanImpl::getColumns() const {
 }
 
 OceanImpl::OceanImpl(unsigned int row, unsigned int column): 
-    rows(row), columns(column), field(row, std::vector<Cell>(column)) {}
+    rows(row), columns(column), field(row, std::vector<Cell>(column)) {
+        fillWithSand();
+    }
 
 std::vector<Cell>& OceanImpl::operator[] (unsigned int row) {
     return field[row];

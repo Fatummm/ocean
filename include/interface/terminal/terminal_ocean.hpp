@@ -5,16 +5,16 @@
 #include <memory>
 #include <chrono>
 
-class Ocean{
+class TOcean{
 private:
     std::ostream& out;
     std::unique_ptr<OceanImpl> pimpl;
 public:
-    Ocean(std::ostream&, unsigned int, unsigned int);
-    Ocean(const Ocean&) = delete;
-    Ocean(const Ocean&&) = delete;
-    Ocean& operator =(const Ocean&) = delete;
-    Ocean& operator =(const Ocean&&) = delete;
+    TOcean(unsigned int, unsigned int, std::ostream& = std::cout);
+    TOcean(const TOcean&) = delete;
+    TOcean(const TOcean&&) = delete;
+    TOcean& operator =(const TOcean&) = delete;
+    TOcean& operator =(const TOcean&&) = delete;
     void display();
     void displayCell(Object*);
     void start();

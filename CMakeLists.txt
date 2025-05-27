@@ -16,7 +16,7 @@ include_directories(
 # add_library(GlobalConfig
 #     src/global.cpp)
 
-add_definitions(-DTERMINAL)
+#add_definitions(-DTERMINAL)
 add_library(Logics 
     src/basic/object.cpp
     src/basic/algae.cpp
@@ -32,6 +32,11 @@ add_library(terminalInterface
         src/interface/terminal/terminal_ocean.cpp
         )
 
+add_library(GUI
+        src/interface/gui/gui_ocean.cpp
+        src/interface/gui/gui_cell.cpp
+        )
+
 add_library(Logging
         src/utils/logger.cpp
         )
@@ -42,9 +47,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 
-add_executable(Game src/main.cpp)
-# set_target_properties(Game PROPERTIES
-#     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}
-# )
+add_executable(Ocean src/main.cpp)
+set_target_properties(Ocean PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}
+)
 
-target_link_libraries(Game terminalInterface Logics Logging)
+target_link_libraries(Ocean GUI terminalInterface Logics Logging)
+target_link_libraries(Ocean sfml-graphics sfml-window sfml-system)
