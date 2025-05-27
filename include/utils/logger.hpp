@@ -22,6 +22,13 @@ private:
     std::chrono::high_resolution_clock::time_point start;
 public:
     Logger(std::ostream&);
+
+    Logger(const Logger&) = delete;
+    Logger(const Logger&&) = delete;
+
+    Logger& operator =(const Logger& other) = delete;
+    Logger& operator =(const Logger&& other) = delete;
+
     ~Logger();
 };
 

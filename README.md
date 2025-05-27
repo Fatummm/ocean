@@ -8,29 +8,12 @@ There is a **Living ocean** realization on C++
 - [How to install and run](#how-to-install-and-run)
 - [Game realization](#game-realization)
 - [Technologies stack](#technologies-stack)
-- [Examples]()
 
 ## Game Description
-__Living ocean__ is not a 
+__Living ocean__ is a simulation of a real ocean
 
-### Description
-Each level tasks the player with destroying an 8 x 5 grid of aliens. The wave initially moves right, shifting down a row and reversing direction upon reaching either side of the screen. The speed depends on the chosen difficulty. The cannon can only move horizontally, and shoot straight up. The cannon can shoot once a second. Each level has four destructible shields that block both player and enemy shots. The player starts with three lives. If all lives are lost, the game ends.
+There you can watch how algaes grow, fish-herbivores eat them and reproduce, and how fish-predators hunt herbivores.
 
-![example](examples/gameplay.png)
-
-### Scoring
-
-#### For enemies:
-- __Green__![green](src/images/enemies/tier1-1.png)(octopus) - 10 points
-- __Violet__![green](src/images/enemies/tier2-1.png)(crab) - 20 points
-- __Red__![green](src/images/enemies/tier3-1.png)(Squid) - 30 points
-
-
-#### After defeating the whole army
-- __Extra__ points are added for walls(70 for each one)
-- __Total score__ is multiplied in the number of left lives of the player.
-
-__Maximum score__ is 3000 points.
 
 ## How to Install and Run
 :bangbang:This projects works __ONLY on Linux__:bangbang:
@@ -56,33 +39,21 @@ __Maximum score__ is 3000 points.
     cmake ..
     make
     ```
-6. To Run the app, leave build and run the Game file:
+6. To Run the app, leave build and run the app file:
     ```
-    ./Game
+    ./Ocean
     ```
 
 ## Game Realization
-The game was created with using OOP - Object-Oriented Programming with the following class hierarchy:
-```
-├── SFMLObject
-│   ├── Entity
-│   │   ├── Player
-│   │   ├── Enemy
-│   │   ├── Wall
-│   │   └── Bullet
-│   └── Button
-├── Page
-│   ├── MainMenuPage
-│   ├── GamePage
-│   ├── ControlsPage
-│   ├── DifficultyPage
-│   ├── VictoryPage
-│   └── LosePage
-├── Score
-├── Army
-└── Game
-```
-`Score` and `Army` classes use the idea of composition: they have objects of type `SFMLObject` and `Enemy` as fields, that's why they are not in `SFMLObject`-tree.
+1. OOP, with inheritance and polymorphism
+2. PIMPL & unique_ptr
+3. Rule Of Five
+4. Templates for fish
+5. Exceptions
+6. RAII: live cycle of an object - constructors, destructors
+7. Realization via SFML - Speed and Fast Multimedia Library
+8. Logs in "output.log"
+
 
 ## Technologies Stack
 - CMake for creating project
