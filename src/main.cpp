@@ -15,6 +15,7 @@ using Ocean = GOcean;
 
 int main() {
     std::ofstream logout("output.log");
+    std::cout << sizeof(GCell);
     Logger<OceanImpl> l(logout);
     srand(time(NULL));
     Ocean o(ROWS, COLUMNS);

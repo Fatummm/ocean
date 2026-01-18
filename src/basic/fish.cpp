@@ -160,5 +160,6 @@ std::optional<Position> Fish<Food>::findEmptyCell() {
     }
     return {};
 }
+
 template class Fish<Algae>;
 template class Fish<Herbivore>;
